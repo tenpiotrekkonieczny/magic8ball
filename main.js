@@ -3,15 +3,6 @@ const input = document.querySelector('input')
 const answer = document.querySelector('.answer')
 const error = document.querySelector('.error')
 
-const generateAnswer = () => {
-
-    const number = Math.floor(Math.random() * 20)
-    answer.innerHTML = `<span>Odpowiedź:</span> ${answersArr[number]}`
-    
-}
-
-ball.addEventListener('click', generateAnswer)
-
 const answersArr = [
 	'Spróbuj później',
 	'Spróbuj ponownie',
@@ -32,5 +23,29 @@ const answersArr = [
 	'Mało prawdopodobne',
 	'Nie śnij...',
 	'Nie licz...',
-	'Niemożliwy '
+	'Niemożliwy ',
 ]
+
+
+const checkInput = () => {
+    if (input.value !== '' && input.value.slice(-1) === '?') {
+        generateAnswer();
+        error.textContent = ''
+    } else if (input.value !== '' && input.value.slice(-1) !== '?') {
+        error.textContent = 'Pytanie musibyć akończone "?"'
+        answer.textContent = ''
+    } else {
+        error.textContent = 'Musisz zadać pytanie!'
+				answer.textContent = ''
+    }
+}
+
+const generateAnswer = () => {
+
+    const number = Math.floor(Math.random() * 20)
+    answer.innerHTML = `<span>Odpowiedź:</span> ${answersArr[number]}`
+    
+}
+
+ball.addEventListener('click', checkInput)
+
